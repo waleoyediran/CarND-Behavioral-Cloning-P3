@@ -64,19 +64,19 @@ model.add(Lambda(lambda x: x / 255.0 - 0.5, input_shape=(160, 320, 3)))
 model.add(Cropping2D(cropping=((70, 25), (0, 0))))
 
 # Convolution Layer 1; 5x5 kernel
-model.add(Convolution2D(24, 5, 5, subsample=(2, 2), activation='relu'))
+model.add(Convolution2D(24, (5, 5), activation='relu', strides=(2, 2)))
 
 # Convolution Layer 2; 5x5 kernel
-model.add(Convolution2D(36, 5, 5, subsample=(2, 2), activation='relu'))
+model.add(Convolution2D(36, (5, 5), activation='relu', strides=(2, 2)))
 
 # Convolution Layer 3; 5x5 kernel
-model.add(Convolution2D(48, 5, 5, subsample=(2, 2), activation='relu'))
+model.add(Convolution2D(48, (5, 5), activation='relu', strides=(2, 2)))
 
 # Convolution Layer 4; 3x3 kernel
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(64, (3, 3), activation='relu'))
 
 # Convolution Layer 1; 3x3 kernel
-model.add(Convolution2D(64, 3, 3, activation='relu'))
+model.add(Convolution2D(64, (3, 3), activation='relu'))
 
 model.add(Flatten())
 model.add(Dropout(0.3))
@@ -95,10 +95,10 @@ model.add(Dense(1, activation='linear'))
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(
     train_generator,
-    samples_per_epoch=len(train_samples) * 6,
+    steps_per_epoch=len(train_samples) * 6,
     validation_data=validation_generator,
-    nb_val_samples=len(validation_samples),
-    nb_epoch=20,
+    validation_steps=len(validation_samples),
+    epochs=10,
     verbose=1
 )
 
