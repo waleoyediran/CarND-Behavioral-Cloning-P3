@@ -1,9 +1,8 @@
-import os
 import csv
 import cv2
 import numpy as np
 import sklearn
-from keras.layers import Cropping2D
+from keras.layers import Cropping2D, Dropout
 from sklearn.model_selection import train_test_split
 from random import shuffle
 from keras.models import Sequential
@@ -80,12 +79,17 @@ model.add(Convolution2D(64, 3, 3, activation='relu'))
 model.add(Convolution2D(64, 3, 3, activation='relu'))
 
 model.add(Flatten())
-
+model.add(Dropout(0.3))
 # Fully Connected Layers
-model.add(Dense(100))
-model.add(Dense(50))
-model.add(Dense(10))
-model.add(Dense(1))
+model.add(Dense(1164, activation='relu'))
+model.add(Dropout(0.3))
+model.add(Dense(100, activation='relu'))
+model.add(Dropout(0.3))
+model.add(Dense(50, activation='relu'))
+model.add(Dropout(0.3))
+model.add(Dense(10, activation='relu'))
+
+model.add(Dense(1, activation='linear'))
 
 
 model.compile(loss='mse', optimizer='adam')
@@ -94,7 +98,7 @@ model.fit_generator(
     samples_per_epoch=len(train_samples) * 6,
     validation_data=validation_generator,
     nb_val_samples=len(validation_samples),
-    nb_epoch=3,
+    nb_epoch=20,
     verbose=1
 )
 
