@@ -51,9 +51,12 @@ def generator(samples, batch_size=32):
             yield sklearn.utils.shuffle(X_train, y_train)
 
 
+batch_size = 32
+
+
 # compile and train the model using the generator function
-train_generator = generator(train_samples, batch_size=32)
-validation_generator = generator(validation_samples, batch_size=32)
+train_generator = generator(train_samples, batch_size=batch_size)
+validation_generator = generator(validation_samples, batch_size=batch_size)
 
 
 # Model Architecture
@@ -95,10 +98,10 @@ model.add(Dense(1, activation='linear'))
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(
     train_generator,
-    steps_per_epoch=len(train_samples) * 6,
+    steps_per_epoch=len(train_samples) // batch_size,
     validation_data=validation_generator,
-    validation_steps=len(validation_samples),
-    epochs=10,
+    validation_steps=len(validation_samples) // batch_size,
+    epochs=20,
     verbose=1
 )
 

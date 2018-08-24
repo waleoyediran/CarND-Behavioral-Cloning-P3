@@ -54,17 +54,18 @@ The model.py file contains the code for training and saving the convolution neur
 #### 1. An appropriate model architecture has been employed
 
 My model is based off a network architecture [published](https://devblogs.nvidia.com/deep-learning-self-driving-cars/) by NVIDIA. 
-My model consists a normalization layer (code line 64); a cropping layer that removes parts of the camera image that are not of interest (code line 65);
-It includes five convolutional layers (three 5x5 kernel and 2 3x3 kernel) (code lines 67 - 80) and three fully connected layers (code lines 85 - 88)
+My model consists a normalization layer (code line 66); a cropping layer that removes parts of the camera image that are not of interest (code line 67);
+It includes five convolutional layers (three 5x5 kernel and 2 3x3 kernel) (code lines 69 - 82) and three fully connected layers (code lines 87 - 95)
  
 
-#### 2. Attempts to reduce overfitting in the model
+#### 2. Attempts to reduce over-fitting in the model
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting. The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+After repeated attempts, I added Dropout layers and some non-linear activations to the Fully-connected layers (except the last) to make my car stay on track.
 
 #### 3. Model parameter tuning
 
-The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 95).
+The model used an adam optimizer, so the learning rate was not tuned manually (model.py line 98).
 
 #### 4. Appropriate training data
 
@@ -91,10 +92,10 @@ More improvements could be made to make for smoother driving, by exploring Dropo
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 63-92) consisted of a convolution neural network with the following layers and layer sizes.
+The final model architecture (model.py lines 62-95) consisted of a convolution neural network with the following layers and layer sizes.
 * Three 5x5 kernel convolutional layer with a 2x2 stride
 * Two non-strided  3x3 kernel convolutional layer.
-* Three fully connected layers.
+* Three fully connected layers ()with Dropouts).
 
 #### 3. Creation of the Training Set & Training Process
 
@@ -116,7 +117,7 @@ To augment the data sat, I also flipped images (at runtime) and steering angles 
 ![Flipped Image][image7]
 
 
-I collected a total of 28332 images from the car's three cameras (9444 from each of the cameras). We augmented by flipping each image.
+I collected a total of 28332 images from the car's three cameras (9444 from each of the cameras). I augmented by flipping each image.
 After the collection/augmentation process, I had 56664 number of data points.
 
 

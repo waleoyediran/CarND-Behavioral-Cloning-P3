@@ -158,7 +158,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-run1/
+run*/
 
 .idea/
 *DS_Store
